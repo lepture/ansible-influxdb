@@ -1,0 +1,14 @@
+---
+
+- name: Add influxdb key
+  apt_key: url=https://repos.influxdata.com/influxdb.key state=present
+
+- name: Add influxdb repo
+  apt_repository:
+    repo: 'deb https://repos.influxdata.com/ubuntu {{ansible_distribution_release}} stable'
+    state: present
+
+- name: Install influxdb
+  apt: name=influxdb state=present
+  notify:
+    - influxdb restart
